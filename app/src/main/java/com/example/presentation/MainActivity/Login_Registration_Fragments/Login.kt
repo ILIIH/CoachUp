@@ -11,6 +11,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.app.App
+import com.example.domain.LoginStatuses
+import com.example.domain.models.Coach_Model
+import com.example.domain.models.Consumer_Model
 import com.example.presentation.BaceActivity.BaceActivity
 import com.example.presentation.MainActivity.MainActivityViewModel
 import com.example.presentation.MainActivity.MainActivityViewModelFactory
@@ -38,49 +41,44 @@ class Login : Fragment() {
         vm =  ViewModelProvider(this,vmFactory).get(MainActivityViewModel::class.java)
 
         views.findViewById<Button>(R.id.buttonLogin).setOnClickListener {
-
                 vm.check_user( Login.text.toString(),Pass.text.toString())
         }
-    var g = 0
-        vm.userConsumer.observe(  viewLifecycleOwner
 
-        ) { observant ->
-
-            when (observant.code()) {
-                in 500..599 -> Toast.makeText(
-                    getActivity(),
-                    "Ошибка! Сервис не доступен",
-                    Toast.LENGTH_SHORT
-                ).show()
-                in 400..499 -> Toast.makeText(
-                    getActivity(),
-                    "Ошибка! Клиентская ошибка",
-                    Toast.LENGTH_SHORT
-                ).show()
-                in 200..299 -> {
-                    if (observant.body() == null) Toast.makeText(
-                        getActivity(),
-                        "Ошибка! Введины не верные данные",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    else if(observant.body()!!.isEmpty())Toast.makeText(
-                        getActivity(),
-                        "Ошибка! Введины не верные данные",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    else GotoBaceActivity()
-                }
-            }
+        vm.userConsumer.observe(  viewLifecycleOwner )
+        {
+                userConsumer -> vm.CheckReciavedConsumer(userConsumer)
         }
 
+        vm.userCoach.observe(viewLifecycleOwner)
+        {
+            userCoach ->vm.CheckReciavedCoach(userCoach)
+        }
+        vm.LoginStatus.observe(viewLifecycleOwner)
+        {
+            status ->
+            if(status.equals(LoginStatuses.SUCCSESS_CONSUMER) )GotoBaceActivityConsumer(vm.userConsumer.value!!.body()!!)
+            if(status.equals(LoginStatuses.SUCCSESS_COACH))GotoBaceActivityCoach(vm.userCoach.value!!.body()!!)
+            if(status.equals(LoginStatuses.NO_ACCOUNT)) Toast.makeText(getActivity(), "Ошибка! Введины не верные данные", Toast.LENGTH_SHORT).show()
+            if(status.equals(LoginStatuses.SERVER_ERROR))Toast.makeText(getActivity(), "Ошибка! Сервис не доступен", Toast.LENGTH_SHORT).show()
+        }
         return views
     }
 
-    fun GotoBaceActivity(){
+
+
+    fun GotoBaceActivityCoach(coach : ArrayList<Coach_Model>){
         val intent = Intent(getActivity(), BaceActivity::class.java)
-        intent.putExtra("Type", "Enter")
-       // intent.putExtra("Password", Pass.text.toString())
-       // intent.putExtra("Login", Login.text.toString())
+        intent.putExtra("Type", "Enter coach")
+        intent.putExtra("coach", coach)
+
+        getActivity()?.startActivity(intent)
+    }
+
+    fun GotoBaceActivityConsumer(consumer : ArrayList<Consumer_Model>){
+        val intent = Intent(getActivity(), BaceActivity::class.java)
+        intent.putExtra("Type", "Enter consumer")
+        intent.putExtra("consumer", consumer)
+
         getActivity()?.startActivity(intent)
     }
 

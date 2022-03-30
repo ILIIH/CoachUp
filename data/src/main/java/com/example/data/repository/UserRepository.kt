@@ -16,11 +16,11 @@ class UserRepository @Inject constructor(val context: Context, var retrofitServi
 
 
 
-    override fun saveCoachUser(coach :Coach_Model ) : Boolean{
+    override fun saveCoachUser(coach :Coach_Model ) : String{
         TODO()
     }
 
-    override fun saveConsumerUser(consumer : Consumer_Model) : Boolean {
+    override fun saveConsumerUser(consumer : Consumer_Model) : String {
         TODO()
     }
 
