@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_register_nawgaf"
+    app:startDestination="@id/loginRegistrationChooseFragment">
+
+    <fragment
+        android:id="@+id/loginRegistrationChooseFragment"
+        android:name="com.example.presentation.MainActivity.Login_Registration_Fragments.LoginRegistrationChooseFragment"
+        android:label="fragment_login_registration"
+        tools:layout="@layout/fragment_login_registration" >
+        <action
+            android:id="@+id/action_loginRegistrationChooseFragment_to_login"
+            app:destination="@id/login" />
+        <action
+            android:id="@+id/action_loginRegistrationChooseFragment_to_registration"
+            app:destination="@id/registration" />
+        <action
+            android:id="@+id/action_loginRegistrationChooseFragment_to_registartionAsCoach"
+            app:destination="@id/registartionAsCoach" />
+    </fragment>
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.presentation.MainActivity.Login_Registration_Fragments.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_loginRegistrationChooseFragment"
+            app:destination="@id/loginRegistrationChooseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registration"
+        android:name="com.example.presentation.MainActivity.Login_Registration_Fragments.RegistrationAsConsumer"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration_as_consumer" >
+        <action
+            android:id="@+id/action_registration_to_loginRegistrationChooseFragment"
+            app:destination="@id/loginRegistrationChooseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registartionAsCoach"
+        android:name="com.example.presentation.MainActivity.Login_Registration_Fragments.RegistartionAsCoach"
+        android:label="RegistartionAsCoach" >
+        <action
+            android:id="@+id/action_registartionAsCoach_to_loginRegistrationChooseFragment"
+            app:destination="@id/loginRegistrationChooseFragment" />
+    </fragment>
+</navigation>
