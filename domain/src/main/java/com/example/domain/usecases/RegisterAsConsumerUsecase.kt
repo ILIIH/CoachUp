@@ -5,5 +5,5 @@ import com.example.domain.repository.RepositoryInterface
 
 class RegisterAsConsumerUsecase(private val repository : RepositoryInterface)  {
 
-    public fun execute(consumer : Consumer_Model) = repository.saveConsumerUser(consumer)
+    suspend fun execute(consumer : Consumer_Model) = repository.saveConsumerUser(consumer)
 }

@@ -5,6 +5,6 @@ import com.example.domain.repository.RepositoryInterface
 
 class RegisterAsCoachUsecase(private val repository : RepositoryInterface)  {
 
-    public fun execute(coach : Coach_Model) = repository.saveCoachUser(coach)
+   suspend fun execute(coach : Coach_Model) = repository.saveCoachUser(coach)
 
 }
