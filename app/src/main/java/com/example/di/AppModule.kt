@@ -17,7 +17,7 @@ class AppModule(val context: Context) {
      LoginAsConsumerUseCase : LoginAsConsumer,
      RegisterAsCoachUsecase : RegisterAsCoachUsecase,
      RegisterAsConsumerUsecase: RegisterAsConsumerUsecase
-    ) : MainActivityViewModelFactory =  MainActivityViewModelFactory(LoginAsCoachUseCase,  LoginAsConsumerUseCase)
+    ) : MainActivityViewModelFactory =  MainActivityViewModelFactory(LoginAsCoachUseCase,  LoginAsConsumerUseCase,RegisterAsCoachUsecase,RegisterAsConsumerUsecase)
     @Provides
     fun provideContext(): Context = context
 
