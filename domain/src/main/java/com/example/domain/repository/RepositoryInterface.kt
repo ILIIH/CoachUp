@@ -6,9 +6,9 @@ import retrofit2.Response
 
 interface RepositoryInterface {
 
-    fun saveCoachUser(coach :Coach_Model ) : String
+    suspend fun saveCoachUser(coach :Coach_Model ) : String
 
-    fun saveConsumerUser(consumer : Consumer_Model) : String
+    suspend fun saveConsumerUser(consumer : Consumer_Model) : String
 
     suspend fun loadCoachUser(login : String, password: String): Response<ArrayList<Coach_Model>>
 
